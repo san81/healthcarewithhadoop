@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1.jar" sourcepath="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-bean-collections-1.8.1.jar" sourcepath="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-core-1.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/nitin/apache/commons-configuration-1.6/commons-configuration-1.6.jar" sourcepath="/home/nitin/apache/commons-configuration-1.6/commons-configuration-1.6-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

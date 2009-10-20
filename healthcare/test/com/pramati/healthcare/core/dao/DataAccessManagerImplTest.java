@@ -4,16 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.pramati.healthcare.core.tools.Table;
+
 public class DataAccessManagerImplTest {
 	private static DataAccessManager manager = null;
-	private static String[] columnFamilies = { "myColumnFamily" };
+	// private static String[] columnFamilies = { "myColumnFamily" };
 	private static String tableName = "myTable";
+	private static Table table = new Table();
+
 
 	@BeforeClass
 	public static void init() {
@@ -21,9 +26,13 @@ public class DataAccessManagerImplTest {
 		if (null == manager) {
 			fail("manager not available");
 		}
-		assertTrue("table not created", manager.create(tableName, Arrays
-				.asList(columnFamilies)));
+		table.setName(tableName);
+		Set<String> coloumnFamilies = new HashSet<String>();
+		coloumnFamilies.add("myColumnFamily");
+		table.setColoumnFamilies(coloumnFamilies);
+		assertTrue("table not created", manager.create(table));
 	}
+
 
 	@Test
 	public void testUpdate() {
@@ -42,6 +51,6 @@ public class DataAccessManagerImplTest {
 
 	@AfterClass
 	public static void clean() throws Exception {
-		assertTrue("Table not deleted", manager.delete(tableName));
+		assertTrue("Table not deleted", manager.delete(table));
 	}
 }
