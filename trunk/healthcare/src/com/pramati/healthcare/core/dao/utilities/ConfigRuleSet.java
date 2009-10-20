@@ -7,7 +7,7 @@ public class ConfigRuleSet implements RuleSet {
 
 	@Override
 	public void addRuleInstances(Digester digester) {
-//		digester.addRule("*/", getTablesElement())
+		// digester.addRule("*/", getTablesElement())
 	}
 
 	@Override
