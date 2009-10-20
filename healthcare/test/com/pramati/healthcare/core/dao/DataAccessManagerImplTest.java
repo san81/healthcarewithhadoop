@@ -14,7 +14,7 @@ public class DataAccessManagerImplTest {
 	private static DataAccessManager manager = null;
 	private static String[] columnFamilies = { "myColumnFamily" };
 	private static String tableName = "myTable";
-	
+
 	@BeforeClass
 	public static void init() {
 		manager = DataAccessManagerImpl.getInstance();
@@ -27,8 +27,10 @@ public class DataAccessManagerImplTest {
 
 	@Test
 	public void testUpdate() {
-		assertTrue("update failed", manager.update(tableName,
-				"myLittleRow, myColumnFamily, someQualifier, Some Value".trim()));
+		assertTrue("update failed", manager
+				.update(tableName,
+						"myLittleRow, myColumnFamily, someQualifier, Some Value"
+								.trim()));
 	}
 
 	@Test
