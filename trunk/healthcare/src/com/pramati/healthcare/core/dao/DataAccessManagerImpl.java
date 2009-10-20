@@ -1,7 +1,7 @@
 package com.pramati.healthcare.core.dao;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,10 +14,10 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.ResultScanner;
-import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.Logger;
+
+import com.pramati.healthcare.core.tools.Table;
 
 /**
  * Implements {@link DataAccessManager}
@@ -27,9 +27,24 @@ import org.apache.log4j.Logger;
  */
 public class DataAccessManagerImpl implements DataAccessManager {
 
+	private static final String INVALID_TABLE_MESSAGE = "table is null or not fit for processing";
+
+	/**
+	 * Factory method.
+	 * 
+	 * @return
+	 */
+	public static DataAccessManager getInstance() {
+		if (null == instance) {
+			instance = new DataAccessManagerImpl();
+		}
+		return instance;
+	}
+
 	private HBaseConfiguration conf;
 	private HBaseAdmin admin;
 	private static DataAccessManager instance = null;
+
 	private static Logger logger = Logger
 			.getLogger(DataAccessManagerImpl.class);
 
@@ -50,51 +65,65 @@ public class DataAccessManagerImpl implements DataAccessManager {
 	}
 
 	@Override
-	public boolean create(String tableName, List<String> coloumnFamilies)
-			throws DAOException {
+	public boolean create(Table table) throws DAOException {
 		try {
 			// check pre-conditions
-			if (null == tableName && CollectionUtils.isEmpty(coloumnFamilies)) {
-				throw new IllegalArgumentException("tableName is null");
+			if (!isValid(table)) {
+				throw new IllegalArgumentException(INVALID_TABLE_MESSAGE);
 			}
+
+			String tableName = table.getName();
 			HTableDescriptor tableDescriptor = new HTableDescriptor(tableName);
+			Set<String> coloumnFamilies = table.getColoumnFamilies();
 			// add coloumn families to the table.
 			for (String familyName : coloumnFamilies) {
 				tableDescriptor.addFamily(new HColumnDescriptor(familyName));
 			}
 
 			// create table.
-			String table = tableDescriptor.getNameAsString();
-			if (!admin.tableExists(table)) {
+			if (!admin.tableExists(tableName)) {
 				admin.createTable(tableDescriptor);
-				logger.info("Table [" + table + "] created");
+				logger.info(table + " created");
 				return true;
 			}
 			logger
-					.warn("Table ["
-							+ table
-							+ "] already exists. Delete the existing table or give a new name to the table.");
+					.warn(table
+							+ " already exists. Delete the existing table or give a new name to the table.");
 			return false;
 		} catch (Exception e) {
 			throw new DAOException(e.getMessage());
 		}
 	}
 
+	private boolean isValid(Table table) {
+		if (null == table) {
+			return false;
+		}
+		if (StringUtils.isEmpty(table.getName())) {
+			return false;
+		}
+		if (CollectionUtils.isEmpty(table.getColoumnFamilies())) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
-	public boolean delete(String tableName) throws DAOException {
+	public boolean delete(Table table) throws DAOException {
 		try {
-			if (null == tableName) {
-				throw new IllegalArgumentException("HTableDescriptor is null");
+			if (!isValid(table)) {
+				throw new IllegalArgumentException(INVALID_TABLE_MESSAGE);
 			}
+			String tableName = table.getName();
 			if (admin.tableExists(tableName)) {
 				if (admin.isTableEnabled(tableName)) {
 					admin.disableTable(tableName);
 				}
 				admin.deleteTable(tableName);
-				logger.info("Table [" + tableName + "] deleted");
+				logger.info(table + " deleted");
 				return true;
 			}
-			logger.info("Table [" + tableName + "] not deleted");
+			logger.info(table + "not deleted");
 			return false;
 		} catch (Exception e) {
 			throw new DAOException(e.getMessage());
@@ -128,32 +157,28 @@ public class DataAccessManagerImpl implements DataAccessManager {
 		}
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @throws IOException
+	 */
 	public void readAll() throws IOException {
-		Scan s = new Scan();
-		s.addColumn(Bytes.toBytes("myColumnFamily"), Bytes
-				.toBytes("someQualifier"));
-		HTable table = new HTable(conf, "myTable");
-		ResultScanner scanner = table.getScanner(s);
-		try {
-			// Scanners return Result instances.
-			// Now, for the actual iteration. One way is to use a while loop
-			// like so:
-			for (Result rr = scanner.next(); rr != null; rr = scanner.next()) {
-				// print out the row we found and the columns we were looking
-				// for
-				System.out.println("Found row: " + rr.toString());
-			}
-
-			// The other approach is to use a foreach loop. Scanners are
-			// iterable!
-			// for (Result rr : scanner) {
-			// System.out.println("Found row: " + rr);
-			// }
-		} finally {
-			// Make sure you close your scanners when you are done!
-			// Thats why we have it inside a try/finally clause
-			scanner.close();
-		}
+		/*
+		 * Scan s = new Scan(); s.addColumn(Bytes.toBytes("myColumnFamily"),
+		 * Bytes .toBytes("someQualifier")); HTable table = new HTable(conf,
+		 * "myTable"); ResultScanner scanner = table.getScanner(s); try { //
+		 * Scanners return Result instances. // Now, for the actual iteration.
+		 * One way is to use a while loop // like so: for (Result rr =
+		 * scanner.next(); rr != null; rr = scanner.next()) { // print out the
+		 * row we found and the columns we were looking // for
+		 * System.out.println("Found row: " + rr.toString()); }
+		 * 
+		 * // The other approach is to use a foreach loop. Scanners are //
+		 * iterable! // for (Result rr : scanner) { //
+		 * System.out.println("Found row: " + rr); // } } finally { // Make sure
+		 * you close your scanners when you are done! // Thats why we have it
+		 * inside a try/finally clause scanner.close(); }
+		 */
 
 	}
 
@@ -185,17 +210,5 @@ public class DataAccessManagerImpl implements DataAccessManager {
 		} catch (Exception e) {
 			throw new DAOException(e.getMessage());
 		}
-	}
-
-	/**
-	 * Factory method.
-	 * 
-	 * @return
-	 */
-	public static DataAccessManager getInstance() {
-		if (null == instance) {
-			instance = new DataAccessManagerImpl();
-		}
-		return instance;
 	}
 }
