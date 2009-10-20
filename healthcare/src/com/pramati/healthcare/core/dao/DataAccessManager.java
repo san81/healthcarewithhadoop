@@ -1,6 +1,6 @@
 package com.pramati.healthcare.core.dao;
 
-import java.util.List;
+import com.pramati.healthcare.core.tools.Table;
 
 /**
  * Provides persistence to application.
@@ -13,14 +13,22 @@ public interface DataAccessManager {
 	/**
 	 * Creates the table.
 	 * 
-	 * @param tableName
-	 * @param coloumnFamilies
+	 * @param table
 	 * @return <code>true</code> if table created successfully,
 	 *         <code>false</code> otherwise.
 	 * @throws DAOException
 	 */
-	public boolean create(String tableName, List<String> coloumnFamilies)
+	public boolean create(Table table)
 			throws DAOException;
+
+	/**
+	 * Deletes the record.
+	 * 
+	 * @param table
+	 * @return
+	 * @throws DAOException
+	 */
+	public boolean delete(Table table) throws DAOException;
 
 	/**
 	 * Retrieves results against the query.
@@ -42,14 +50,5 @@ public interface DataAccessManager {
 	 * @throws DAOException
 	 */
 	boolean update(String tableName, String searchString) throws DAOException;
-
-	/**
-	 * Deletes the record.
-	 * 
-	 * @param tableName
-	 * @return
-	 * @throws DAOException
-	 */
-	public boolean delete(String tableName) throws DAOException;
 
 }
