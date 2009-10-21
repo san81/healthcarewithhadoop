@@ -15,7 +15,6 @@ import com.pramati.healthcare.core.tools.Table;
 
 public class DataAccessManagerImplTest {
 	private static DataAccessManager manager = null;
-	// private static String[] columnFamilies = { "myColumnFamily" };
 	private static String tableName = "myTable";
 	private static Table table = new Table();
 
@@ -36,6 +35,14 @@ public class DataAccessManagerImplTest {
 
 	@Test
 	public void testUpdate() {
+		assertTrue("update failed", manager
+				.update(tableName,
+						"myLittleRow, myColumnFamily, someQualifier, Some Value"
+								.trim()));
+	}
+	
+	@Test
+	public void testUpdateBinaryData() {
 		assertTrue("update failed", manager
 				.update(tableName,
 						"myLittleRow, myColumnFamily, someQualifier, Some Value"

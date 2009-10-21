@@ -49,6 +49,6 @@ public interface DataAccessManager {
 	 * @return
 	 * @throws DAOException
 	 */
-	boolean update(String tableName, String searchString) throws DAOException;
+	public boolean update(String tableName, String searchString) throws DAOException;
 
 }
