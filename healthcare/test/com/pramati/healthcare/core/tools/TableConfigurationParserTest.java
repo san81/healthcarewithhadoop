@@ -12,6 +12,6 @@ public class TableConfigurationParserTest extends TestCase {
 	public void testParse() throws MalformedURLException, Exception {
 		TableConfigurationParser parser = new TableConfigurationParser();
 		assertTrue("empty list", CollectionUtils.isNotEmpty(parser
-				.parse("tables.xml")));
+				.parse("conf/tables.xml")));
 	}
 }

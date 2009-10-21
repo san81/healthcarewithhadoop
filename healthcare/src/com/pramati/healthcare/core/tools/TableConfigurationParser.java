@@ -10,7 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,7 +43,7 @@ public class TableConfigurationParser {
 		for (int size = tables.size(), index = 0; index < size; index++) {
 			table = configuration
 					.configurationAt("tables.table(" + index + ")");
-			getTableDescriptor(table);
+			tables.add(getTableDescriptor(table));
 		}
 		return tables;
 	}
@@ -59,7 +58,8 @@ public class TableConfigurationParser {
 			throws ConfigurationException {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(
+					"configuration file does nto exists.");
 		}
 		XMLConfiguration configuration = new XMLConfiguration();
 		configuration.setFileName(fileName);
@@ -79,11 +79,10 @@ public class TableConfigurationParser {
 			setColoumnFamily.add((String) iterator.next());
 		}
 		table.setColoumnFamilies(setColoumnFamily);
-		System.out.println(table);
 		return table;
 	}
 
 	public static void main(String[] args) throws Exception {
-		new TableConfigurationParser().parse("tables.xml");
+		new TableConfigurationParser().parse("conf/tables.xml");
 	}
 }
