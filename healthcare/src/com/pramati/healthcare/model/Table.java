@@ -1,4 +1,4 @@
-package com.pramati.healthcare.core.tools;
+package com.pramati.healthcare.model;
 
 import java.util.Set;
 
@@ -24,6 +24,6 @@ public class Table {
 
 	@Override
 	public String toString() {
-		return name;
+		return "Table: " + name + System.identityHashCode(name);
 	}
 }

@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.pramati.healthcare.core.tools.Table;
+import com.pramati.healthcare.model.Table;
 
 public class DataAccessManagerImplTest {
 	private static DataAccessManager manager = null;

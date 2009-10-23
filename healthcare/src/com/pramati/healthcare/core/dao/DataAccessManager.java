@@ -1,6 +1,6 @@
 package com.pramati.healthcare.core.dao;
 
-import com.pramati.healthcare.core.tools.Table;
+import com.pramati.healthcare.model.Table;
 
 /**
  * Provides persistence to application.

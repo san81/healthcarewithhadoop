@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pramati.healthcare.core.dao.DataAccessManager;
 import com.pramati.healthcare.core.dao.DataAccessManagerImpl;
+import com.pramati.healthcare.model.Table;
 
 public class SwissKnife {
 	public static void init() {
