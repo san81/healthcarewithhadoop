@@ -18,8 +18,7 @@ public interface DataAccessManager {
 	 *         <code>false</code> otherwise.
 	 * @throws DAOException
 	 */
-	public boolean create(Table table)
-			throws DAOException;
+	public boolean create(Table table) throws DAOException;
 
 	/**
 	 * Deletes the record.
@@ -49,6 +48,7 @@ public interface DataAccessManager {
 	 * @return
 	 * @throws DAOException
 	 */
-	public boolean update(String tableName, String searchString) throws DAOException;
+	public boolean update(String tableName, String searchString)
+			throws DAOException;
 
 }
