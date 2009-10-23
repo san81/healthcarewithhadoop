@@ -1,6 +1,8 @@
 package com.pramati.healthcare.core.tools;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,8 @@ import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 
 /**
+ * Extracts table configuration information from the configuration file. <br/>
+ * TODO: check for configuration file validation.
  * 
  * @author nitin
  * 
@@ -33,17 +37,23 @@ public class TableConfigurationParser {
 	 * @param fileName
 	 * @throws Exception
 	 */
-	public List<Table> parse(String fileName) throws Exception {
-		XMLConfiguration configuration = getConfiguration(fileName);
-		List<Table> tables = configuration.getList(TABLE_NAME);
-		if (CollectionUtils.isEmpty(tables)) {
-			throw new IllegalStateException();
-		}
-		HierarchicalConfiguration table = null;
-		for (int size = tables.size(), index = 0; index < size; index++) {
-			table = configuration
-					.configurationAt("tables.table(" + index + ")");
-			tables.add(getTableDescriptor(table));
+	public static List<Table> parse(String fileName) {
+		XMLConfiguration configuration;
+		List<Table> tables = new ArrayList<Table>();
+		try {
+			configuration = getConfiguration(fileName);
+			int size = configuration.getList(TABLE_NAME).size();
+			if (size <= 0) {
+				throw new IllegalStateException();
+			}
+			HierarchicalConfiguration table = null;
+			for (int index = 0; index < size; index++) {
+				table = configuration.configurationAt("tables.table(" + index
+						+ ")");
+				tables.add(getTableDescriptor(table));
+			}
+		} catch (ConfigurationException e) {
+			throw new ToolsException(e.getMessage());
 		}
 		return tables;
 	}
@@ -54,13 +64,14 @@ public class TableConfigurationParser {
 	 * @throws ConfigurationException
 	 * @throws org.apache.commons.configuration.ConfigurationException
 	 */
-	private XMLConfiguration getConfiguration(String fileName)
+	private static XMLConfiguration getConfiguration(String fileName)
 			throws ConfigurationException {
 		File file = new File(fileName);
 		if (!file.exists()) {
 			throw new IllegalArgumentException(
 					"configuration file does nto exists.");
 		}
+		// TODO: add and check for validations.
 		XMLConfiguration configuration = new XMLConfiguration();
 		configuration.setFileName(fileName);
 		configuration.setValidating(VALIDATE);
@@ -68,7 +79,7 @@ public class TableConfigurationParser {
 		return configuration;
 	}
 
-	private Table getTableDescriptor(
+	private static Table getTableDescriptor(
 			HierarchicalConfiguration tableConfiguration) {
 		Table table = new Table();
 		table.setName(tableConfiguration.getString("name"));
@@ -82,7 +93,10 @@ public class TableConfigurationParser {
 		return table;
 	}
 
-	public static void main(String[] args) throws Exception {
-		new TableConfigurationParser().parse("conf/tables.xml");
+	public static void main(String[] args) {
+		List<Table> tables = parse("conf/tables.xml");
+		for (Table table : tables) {
+			System.out.println(table);
+		}
 	}
 }
