@@ -13,6 +13,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 
+import com.pramati.healthcare.model.Table;
+
 /**
  * Extracts table configuration information from the configuration file. <br/>
  * TODO: check for configuration file validation.

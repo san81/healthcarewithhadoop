@@ -8,6 +8,8 @@ import junit.framework.TestCase;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 
+import com.pramati.healthcare.model.Table;
+
 public class TableConfigurationParserTest extends TestCase {
 	@Test
 	public void testParse() throws MalformedURLException, Exception {

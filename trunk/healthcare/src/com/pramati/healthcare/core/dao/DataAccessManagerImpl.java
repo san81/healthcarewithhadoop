@@ -17,7 +17,7 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.Logger;
 
-import com.pramati.healthcare.core.tools.Table;
+import com.pramati.healthcare.model.Table;
 
 /**
  * Implements {@link DataAccessManager}
@@ -97,12 +97,16 @@ public class DataAccessManagerImpl implements DataAccessManager {
 
 	private boolean isValid(Table table) {
 		if (null == table) {
+			logger.error("input param can not be null.");
 			return false;
 		}
 		if (StringUtils.isEmpty(table.getName())) {
+			logger.error("table name not found.");
 			return false;
 		}
 		if (CollectionUtils.isEmpty(table.getColoumnFamilies())) {
+			logger
+					.error("table without coloumn families are not valid, atleast one coloumn family is required.");
 			return false;
 		}
 		return true;
@@ -123,7 +127,8 @@ public class DataAccessManagerImpl implements DataAccessManager {
 				logger.info(table + " deleted");
 				return true;
 			}
-			logger.info(table + "not deleted");
+			logger.warn(table + "not deleted: " + table.getName()
+					+ " does not exits.");
 			return false;
 		} catch (Exception e) {
 			throw new DAOException(e.getMessage());
