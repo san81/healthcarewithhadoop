@@ -1,5 +1,6 @@
 package com.pramati.healthcare.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,9 @@ import java.util.List;
 public class Patient extends Person {
 	private List<Problem> problems;
 
+	public Patient(){
+		problems = new ArrayList<Problem>();
+	}
 	public List<Problem> getProblems() {
 		return problems;
 	}
