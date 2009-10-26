@@ -9,9 +9,7 @@
           <value style="element" name="lastName" field="lastName" usage="optional"/>
         </structure>
         <value style="element" name="gender" field="gender" usage="optional"/>
-        <structure field="dob" usage="optional" name="dob">
-          <value style="attribute" name="dateOfBirth" field="dateOfBirth" usage="optional"/>
-        </structure>
+        <value style="attribute" name="dob" field="dob" usage="optional"/>
         <structure field="address" usage="optional" name="address">
           <value style="element" name="line1" field="line1" usage="optional"/>
           <value style="element" name="line2" field="line2" usage="optional"/>
@@ -21,7 +19,7 @@
           <value style="element" name="country" field="country" usage="optional"/>
         </structure>
         <structure field="contact" usage="optional" name="contact">
-          <structure field="contacts" name="map" marshaller="org.jibx.extras.HashMapperStringToSchemaType" unmarshaller="org.jibx.extras.HashMapperStringToSchemaType"/>
+         <structure field="contacts" name="map" marshaller="org.jibx.extras.HashMapperStringToSchemaType" unmarshaller="org.jibx.extras.HashMapperStringToSchemaType"/>
         </structure>
       </structure>
     </structure>
