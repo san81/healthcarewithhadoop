@@ -1,0 +1,101 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pramati.com/healthcare/model" elementFormDefault="qualified" targetNamespace="http://pramati.com/healthcare/model">
+  <xs:element type="tns:patient" name="patient"/>
+  <xs:complexType name="patient">
+    <xs:annotation>
+      <xs:documentation>Represents a patient healthcare record.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="demography" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="xs:string" name="firstName" minOccurs="0"/>
+                  <xs:element type="xs:string" name="middleName" minOccurs="0"/>
+                  <xs:element type="xs:string" name="lastName" minOccurs="0"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="gender" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="MALE"/>
+                  <xs:enumeration value="FEMALE"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="xs:string" name="line1" minOccurs="0"/>
+                  <xs:element type="xs:string" name="line2" minOccurs="0"/>
+                  <xs:element type="xs:string" name="city" minOccurs="0"/>
+                  <xs:element type="xs:string" name="state" minOccurs="0"/>
+                  <xs:element type="xs:string" name="zip" minOccurs="0"/>
+                  <xs:element type="xs:string" name="country" minOccurs="0"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="xs:string" name="contact" minOccurs="0"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="xs:dateTime" name="dob"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="problem" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="description" minOccurs="0"/>
+            <xs:element name="episodicity" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="NEW"/>
+                  <xs:enumeration value="ONGOING"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="severity" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="MILD"/>
+                  <xs:enumeration value="MILD_TO_MODERATE"/>
+                  <xs:enumeration value="MODERATE"/>
+                  <xs:enumeration value="MODERATE_TO_SEVERE"/>
+                  <xs:enumeration value="SEVERE"/>
+                  <xs:enumeration value="FATAL"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="course" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="ACUTE"/>
+                  <xs:enumeration value="CHRONIC"/>
+                  <xs:enumeration value="RECURRENT"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="onset" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="GRADUAL"/>
+                  <xs:enumeration value="SUDDEN"/>
+                  <xs:enumeration value="ACUTE"/>
+                  <xs:enumeration value="INSIDIOUS"/>
+                  <xs:enumeration value="SUBACUTE"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="xs:dateTime" name="startDate"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -4,29 +4,23 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry including="*.xml" kind="src" path="conf"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hadoop"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/HBase"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-lang-2.4/commons-lang-2.4.jar" sourcepath="/home/nitin/apache/commons-lang-2.4/commons-lang-2.4-sources.jar"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-collections-3.2.1/commons-collections-3.2.1.jar" sourcepath="/home/nitin/apache/commons-collections-3.2.1/commons-collections-3.2.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/nitin/apache/commons-collections-3.2.1/commons-collections-3.2.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="var" path="JUNIT_4_7/junit-4.7.jar" sourcepath="/JUNIT_4_7/junit-4.7-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/nitin/lib/junit4.7/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-digester-2.0/commons-digester-2.0.jar" sourcepath="/home/nitin/apache/commons-digester-2.0/commons-digester-2.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/nitin/apache/commons-digester-2.0/commons-digester-2.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/nitin/apache/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1.jar" sourcepath="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1-sources.jar"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-bean-collections-1.8.1.jar" sourcepath="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-1.8.1-sources.jar"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-beanutils-1.8.1/commons-beanutils-core-1.8.1.jar"/>
-	<classpathentry kind="lib" path="/home/nitin/apache/commons-configuration-1.6/commons-configuration-1.6.jar" sourcepath="/home/nitin/apache/commons-configuration-1.6/commons-configuration-1.6-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hadoop"/>
+	<classpathentry kind="lib" path="/home/santosh/hbase-0.20.0/hbase-0.20.0.jar" sourcepath="/home/santosh/hbase-0.20.0/src"/>
+	<classpathentry kind="lib" path="lib/junit-4.7.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/commons-configuration-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/bcel.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/jibx-bind.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/jibx-extras.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/jibx-run.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/jibx-schema.jar"/>
+	<classpathentry kind="lib" path="lib/jibx/jibx-tools.jar" sourcepath="/jibx/build/src"/>
+	<classpathentry kind="lib" path="lib/jibx/qdox.jar"/>
+	<classpathentry kind="lib" path="lib/spring-mvc/spring-webmvc.jar"/>
+	<classpathentry kind="lib" path="lib/spring-mvc/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-mvc/standard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hbase"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
