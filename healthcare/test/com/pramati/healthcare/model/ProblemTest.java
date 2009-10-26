@@ -1,16 +1,16 @@
 package com.pramati.healthcare.model;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
-public class ProblemTest extends TestCase {
+public class ProblemTest {
 	@Test
 	public void testEquals() throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
