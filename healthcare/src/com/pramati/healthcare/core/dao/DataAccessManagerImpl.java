@@ -210,32 +210,6 @@ public class DataAccessManagerImpl implements DataAccessManager {
 		}
 	}		
 
-	/**
-	 * TODO
-	 * 
-	 * @throws IOException
-	 */
-	public void readAll() throws IOException {
-		/*
-		 * Scan s = new Scan(); s.addColumn(Bytes.toBytes("myColumnFamily"),
-		 * Bytes .toBytes("someQualifier")); HTable table = new HTable(conf,
-		 * "myTable"); ResultScanner scanner = table.getScanner(s); try { //
-		 * Scanners return Result instances. // Now, for the actual iteration.
-		 * One way is to use a while loop // like so: for (Result rr =
-		 * scanner.next(); rr != null; rr = scanner.next()) { // print out the
-		 * row we found and the columns we were looking // for
-		 * System.out.println("Found row: " + rr.toString()); }
-		 * 
-		 * // The other approach is to use a foreach loop. Scanners are //
-		 * iterable! // for (Result rr : scanner) { //
-		 * System.out.println("Found row: " + rr); // } } finally { // Make sure
-		 * you close your scanners when you are done! // Thats why we have it
-		 * inside a try/finally clause scanner.close(); }
-		 */
-
-
-	}
-
 	@Override
 	public boolean update(String tableName, String searchString)
 			throws DAOException {

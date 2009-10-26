@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import com.pramati.healthcare.model.Patient;
 
 @Path("/patients")
-public class PatientResource {
+public class PatientResource{
 	private Map<Integer, Patient> patientDB = new ConcurrentHashMap<Integer, Patient>();
 	private AtomicInteger idCounter = new AtomicInteger();
 	private Logger logger = Logger.getLogger(PatientResource.class);
@@ -30,16 +30,15 @@ public class PatientResource {
 	@POST
 	@Consumes("application/xml")
 	public Response createPatient(InputStream is) {
-		Patient patient = readPatient(is);
+		Patient patient = readInputStream(is);
 		patient.setPatientId(idCounter.incrementAndGet());
 		patientDB.put(patient.getPatientId(), patient);
 		logger.info("Created patient " + patient.getPatientId());
 		return Response.created(
 				URI.create("/patients" + patient.getPatientId())).build();
-
 	}
 
-	protected Patient readPatient(InputStream is) {
+	private Patient readInputStream(InputStream is) {
 		return null;
 	}
 
