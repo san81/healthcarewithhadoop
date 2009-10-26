@@ -1,5 +1,7 @@
 package com.pramati.healthcare.model;
 
+import java.util.Date;
+
 /**
  * Captures statistical characteristic of a human population (such as name, age,
  * zip code or income) that is important for creating particular target-groups.
@@ -11,7 +13,7 @@ public class Demography {
 
 	private Name name;
 	private Gender gender;
-	private DateOfBirth dob;
+	private Date dob;
 	private Address address;
 	private Contact contact;
 
@@ -31,11 +33,16 @@ public class Demography {
 		this.gender = gender;
 	}
 
-	public DateOfBirth getDob() {
+	public Date getDob() {
 		return dob;
 	}
+	
+	public int getAge(){
+		// TODO:
+		return 0;
+	}
 
-	public void setDob(DateOfBirth dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 

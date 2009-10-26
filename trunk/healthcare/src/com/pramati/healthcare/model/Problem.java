@@ -2,6 +2,12 @@ package com.pramati.healthcare.model;
 
 import java.util.Date;
 
+/**
+ * Represents the problem description of the patient.
+ * 
+ * @author nitin
+ * 
+ */
 public class Problem implements Comparable<Problem> {
 	private String description;
 	private Date startDate;
