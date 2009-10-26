@@ -35,6 +35,7 @@ public class DataAccessManagerImplTest {
 		table.setName(tableName);
 		Set<String> coloumnFamilies = new HashSet<String>();
 		coloumnFamilies.add("myColumnFamily");
+		coloumnFamilies.add("fileStoreColumnFamily");
 		table.setColoumnFamilies(coloumnFamilies);
 		assertTrue("table not created", manager.create(table));
 	}
@@ -55,11 +56,27 @@ public class DataAccessManagerImplTest {
 								.trim()));
 	}
 
+
 	@Test
 	public void testRead() {
 		String tableName = "myTable";
 		assertEquals("Some Value", manager.read(tableName,
 				"myLittleRow,myColumnFamily:someQualifier".trim()));
+		manager.read(tableName,
+				"fileStoreRow,fileStoreColumnFamily:fileStoreQualifier".trim());
+	}
+	
+	@Test
+	public void testPutAFile() {
+		assertTrue("file placing failed", manager
+				.putAFile(tableName, "/home/santosh/logfiles/extracted/access.log",
+						"myRowWithAFile, columnFamilyWithFile, fileStoreQualifier, filecontent".trim()));
+	}
+	
+	@Test
+	public void testReadAll() {
+		String tableName = "myTable";
+		manager.readAll(tableName);
 	}
 
 	@AfterClass
