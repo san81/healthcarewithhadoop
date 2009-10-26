@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class DateOfBirth {
 	private Date dateOfBirth;
+	
+	public DateOfBirth(){
+		
+	}
 
 	public DateOfBirth(Date aDateOfBirth) {
 		dateOfBirth = aDateOfBirth;

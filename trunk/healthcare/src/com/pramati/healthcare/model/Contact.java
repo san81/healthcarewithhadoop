@@ -10,7 +10,8 @@ public class Contact {
 	}
 
 	public void setContact(ContactType contactType, String contactValue) {
-		// TODO: validate
+		if(contacts==null)
+			contacts = new java.util.HashMap<ContactType, String>();			
 		contacts.put(contactType, contactValue);
 	}
 

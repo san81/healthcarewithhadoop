@@ -1,0 +1,47 @@
+<binding xmlns:tns="http://pramati.com/healthcare/model" name="binding" package="com.pramati.healthcare.model">
+  <namespace uri="http://pramati.com/healthcare/model" default="elements"/>
+  <mapping abstract="true" type-name="tns:patient" class="com.pramati.healthcare.model.Patient">
+    <structure type="com.pramati.healthcare.model.Person">
+      <structure field="demography" usage="optional" name="demography">
+        <structure field="name" usage="optional" name="name">
+          <value style="element" name="firstName" field="firstName" usage="optional"/>
+          <value style="element" name="middleName" field="middleName" usage="optional"/>
+          <value style="element" name="lastName" field="lastName" usage="optional"/>
+        </structure>
+        <value style="element" name="gender" field="gender" usage="optional"/>
+        <structure field="dob" usage="optional" name="dob">
+          <value style="attribute" name="dateOfBirth" field="dateOfBirth" usage="optional"/>
+        </structure>
+        <structure field="address" usage="optional" name="address">
+          <value style="element" name="line1" field="line1" usage="optional"/>
+          <value style="element" name="line2" field="line2" usage="optional"/>
+          <value style="element" name="city" field="city" usage="optional"/>
+          <value style="element" name="state" field="state" usage="optional"/>
+          <value style="element" name="zip" field="zip" usage="optional"/>
+          <value style="element" name="country" field="country" usage="optional"/>
+        </structure>
+        <structure field="contact" usage="optional" name="contact">
+          <structure field="contacts" name="map" marshaller="org.jibx.extras.HashMapperStringToSchemaType" unmarshaller="org.jibx.extras.HashMapperStringToSchemaType"/>
+        </structure>
+      </structure>
+    </structure>
+    <collection field="problems" usage="optional" create-type="java.util.ArrayList">
+      <structure type="com.pramati.healthcare.model.Problem" name="problem">
+        <value style="element" name="description" field="description" usage="optional"/>
+        <value style="attribute" name="startDate" field="startDate" usage="optional"/>
+        <value style="element" name="episodicity" field="episodicity" usage="optional"/>
+        <value style="element" name="severity" field="severity" usage="optional"/>
+        <value style="element" name="course" field="course" usage="optional"/>
+        <value style="element" name="onset" field="onset" usage="optional"/>
+      </structure>
+    </collection>
+  </mapping>
+  <mapping class="java.util.HashMap" name="map" marshaller="org.jibx.extras.HashMapperStringToSchemaType" unmarshaller="org.jibx.extras.HashMapperStringToSchemaType">  	
+  </mapping>
+   <mapping class="com.pramati.healthcare.model.Contact" name="contact">
+    <structure field="contacts"/>
+  </mapping>
+  <mapping class="com.pramati.healthcare.model.Patient" name="patient">
+    <structure map-as="tns:patient"/>
+  </mapping>
+</binding>

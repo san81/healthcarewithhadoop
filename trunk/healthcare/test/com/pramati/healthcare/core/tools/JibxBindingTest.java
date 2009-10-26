@@ -8,6 +8,8 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.JiBXException;
 
+import com.pramati.healthcare.model.Contact;
+import com.pramati.healthcare.model.ContactType;
 import com.pramati.healthcare.model.Course;
 import com.pramati.healthcare.model.Demography;
 import com.pramati.healthcare.model.Episodicity;
@@ -40,6 +42,10 @@ public class JibxBindingTest
             prob.setEpisodicity(Episodicity.NEW);
             prob.setOnset(Onset.ACUTE);
             Demography demography = new Demography();
+            Contact contacts = new Contact();
+            contacts.setContact(ContactType.EMAIL, "hi@yaho.com");
+            contacts.setContact(ContactType.EMERGENCY_CONTACT, "9888788765");
+            demography.setContact(contacts);
             Patient patient = new Patient();
             patient.setProblem(prob);
             patient.setDemography(demography);
