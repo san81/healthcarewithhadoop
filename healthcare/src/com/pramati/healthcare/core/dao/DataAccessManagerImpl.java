@@ -83,11 +83,11 @@ public class DataAccessManagerImpl implements DataAccessManager {
 			// create table.
 			if (!admin.tableExists(tableName)) {
 				admin.createTable(tableDescriptor);
-				logger.info(table + " created");
+				logger.info(table.getName() + " created");
 				return true;
 			}
 			logger
-					.warn(table
+					.warn(table.getName()
 							+ " already exists. Delete the existing table or give a new name to the table.");
 			return false;
 		} catch (Exception e) {
@@ -124,10 +124,10 @@ public class DataAccessManagerImpl implements DataAccessManager {
 					admin.disableTable(tableName);
 				}
 				admin.deleteTable(tableName);
-				logger.info(table + " deleted");
+				logger.info(table.getName() + " deleted");
 				return true;
 			}
-			logger.warn(table + "not deleted: " + table.getName()
+			logger.warn(table.getName() + "not deleted: " + table.getName()
 					+ " does not exits.");
 			return false;
 		} catch (Exception e) {
