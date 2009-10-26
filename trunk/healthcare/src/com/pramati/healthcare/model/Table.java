@@ -24,6 +24,6 @@ public class Table {
 
 	@Override
 	public String toString() {
-		return "Table: " + name + System.identityHashCode(name);
+		return "Table: " + name + "#"+System.identityHashCode(this);
 	}
 }

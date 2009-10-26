@@ -13,11 +13,18 @@ import org.junit.Test;
 
 import com.pramati.healthcare.model.Table;
 
+/**
+ * Make sure the HBase instance is up and running and that the application can
+ * connect to it, before running the test case. In case of failure you might
+ * like to check for configurations.
+ * 
+ * @author nitin
+ * 
+ */
 public class DataAccessManagerImplTest {
 	private static DataAccessManager manager = null;
 	private static String tableName = "myTable";
 	private static Table table = new Table();
-
 
 	@BeforeClass
 	public static void init() {
@@ -32,7 +39,6 @@ public class DataAccessManagerImplTest {
 		assertTrue("table not created", manager.create(table));
 	}
 
-
 	@Test
 	public void testUpdate() {
 		assertTrue("update failed", manager
@@ -40,7 +46,7 @@ public class DataAccessManagerImplTest {
 						"myLittleRow, myColumnFamily, someQualifier, Some Value"
 								.trim()));
 	}
-	
+
 	@Test
 	public void testUpdateBinaryData() {
 		assertTrue("update failed", manager
