@@ -6,19 +6,32 @@ Ant build file for Healthcare project
 
 ===================================================================+ -->
 
-<project name="healthcare" default="bind" basedir=".">
+<project name="healthcare" default="deployWar" basedir=".">
 	<description>Health Care with Hadoop - POC </description>
 	<property file="build.properties"/>
+	<property name="ant.build.javac.source" value="1.5" />
+	<property name="ant.build.javac.target" value="1.5" />
+	
 	<property name="hadoop_lib" location="${hadoop_home}/lib" />
 	<property name="habase_lib" location="${hbase_home}/lib" />
+	<property name="classes" location="${buildDir}/web/WEB-INF/classes" />
+	<property name="test.classes" location="test" />	
+	<property name="dist" location="dist" />
+	<property name="junit-result" location="result" />
+	<property name="lib" location="${rootDir}/lib" />
+	<property name="src" location="src" />
+	<property name="src.web" location="WebContent" />
+	<property name="src.cfg" location="conf" />
 	<path id="classpath">
 		<fileset dir="lib" includes="*.jar"/>
 		<fileset dir="lib/jibx" includes="*.jar"/>
+		<fileset dir="lib/rest-ws" includes="*.jar"/>
+		<fileset dir="lib/spring-mvc" includes="*.jar"/>
 		<fileset dir="${hadoop_lib}" includes="*.jar"/>
 		<fileset dir="${habase_lib}" includes="*.jar"/>
 		<pathelement location="bin"/>
 	</path>
-	<!-- generate default binding and schema -->
+	<!-- generate default binding and schema for the given class(es)-->
 	<target name="bindgen" depends="compile">
 
 		<echo message="Running BindGen tool"/>
@@ -31,7 +44,7 @@ Ant build file for Healthcare project
 
 	</target>
 
-	<!-- bind as a separate step -->
+	<!-- bind as a separate step (Complie Task with bcel jar for jibx)-->
 	<target name="bind" depends="compile">
 		<echo message="Running JiBX binding compiler"/>
 		<taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
@@ -45,15 +58,77 @@ Ant build file for Healthcare project
 	</target>
 
 	<!-- compile the classes -->
-	<target name="compile" depends="clean">
-		<echo message="Compiling Java source code"/>		
+	<target name="compile" depends="init">
+		<echo message="Compiling Java source code"/>
+		<echo message="using the classpath :: ${classpath}"/>
 		<mkdir dir="${basedir}/bin"/>
-		<javac srcdir="${basedir}/src" destdir="${basedir}/bin" debug="on">
+		<javac srcdir="${basedir}/src" destdir="${classes}" debug="on">
 			<classpath refid="classpath"/>
 		</javac>
 	</target>
-	<!-- clean compiled class files and output file -->
-	  <target name="clean">
-	  	<echo message="Clean generated files"/>    
-	  </target>
+	
+	<!-- building a war file -->
+	<target name="buildWar" depends="bind">
+				<war destfile="${buildDir}\archive\${appName}.war" webxml="${src.web}/WEB-INF/web.xml">							
+					<classes dir="${classes}"/>				
+					<zipfileset dir="${src.web}" prefix=""/>				
+					<zipfileset dir="${src.cfg}" prefix="WEB-INF/classes"/>
+					<zipfileset dir="${rootDir}" prefix="WEB-INF/classes">
+						<include name="binding.xml"/>
+						<include name="model.xsd"/>
+					</zipfileset>
+					<zipfileset dir="${lib}" prefix="WEB-INF/lib">
+						<include name="*.jar"/>
+					</zipfileset>
+					<zipfileset dir="${lib}/jibx" prefix="WEB-INF/lib">
+						<include name="*.jar"/>
+					</zipfileset>
+					<zipfileset dir="${lib}/spring-mvc" prefix="WEB-INF/lib">
+						<include name="*.jar"/>
+					</zipfileset>
+					 <webinf dir="${src.web}/WEB-INF/">							
+							<include name="*.xml"/>
+					 </webinf>
+				</war>				
+	</target>
+	
+	<!-- deploy war file to server -->
+	<target name="deployWar" depends="buildWar">
+		<copy todir="${jbossServer}/" flatten="false">
+			<fileset dir="${buildDir}/archive/" includes="${appName}.war" />			   	
+		</copy>			
+	</target>
+	
+	<!-- Clean -->
+			<target name="clean" depends="clean-classes, clean-target" />
+
+			<!-- Clean classes -->
+			<target name="clean-classes">
+		 		<delete dir="${classes}" />
+				<delete dir="${buildDir}/web/WEB-INF/classes" />
+				<delete dir="${dist}" />
+				<delete file="${jbossServer}/${appName}.war"/>
+			</target>
+			<target name="clean-target">
+				<delete dir="${buildDir}/bin" />
+				<delete dir="${buildDir}/lib" />
+				<delete dir="${buildDir}/cfg" />
+				<delete dir="${buildDir}/log" />
+				<delete dir="${buildDir}/web" />
+				<delete dir="${buildDir}/archive" />
+				<delete dir="${stage}" />
+			</target>
+		<!-- Init -->
+			<target name="init" depends="clean">
+				<mkdir dir="${buildDir}/cfg/" />
+				<mkdir dir="${buildDir}/lib" />
+				<mkdir dir="${buildDir}/bin" />
+				<mkdir dir="${buildDir}/log" />
+				<mkdir dir="${buildDir}/web" />
+				<mkdir dir="${buildDir}/archive" />
+				<mkdir dir="${classes}" />
+				<mkdir dir="${test.classes}" />
+				<mkdir dir="${dist}" />			
+				<mkdir dir="${junit-result}" />
+			</target>
 </project>

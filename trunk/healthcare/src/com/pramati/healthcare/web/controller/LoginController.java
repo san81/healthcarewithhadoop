@@ -16,7 +16,7 @@ public class LoginController implements Controller {
 
 		String aMessage = "Hello World MVC!";
 		
-		ModelAndView modelAndView = new ModelAndView("hello_world");
+		ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("message", aMessage);
 		
 		return modelAndView;
