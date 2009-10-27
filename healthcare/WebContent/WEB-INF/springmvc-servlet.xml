@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean name="/hello_world.html" class="springmvc.web.HelloWorldController" />
+	<bean name="/index.html" class="com.pramati.healthcare.web.controller.LoginController" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
